@@ -14,34 +14,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ind.hospitalmanagementsystem.dto.Doctor;
 import com.ind.hospitalmanagementsystem.dto.Patient;
+import com.ind.hospitalmanagementsystem.service.DoctorService;
 import com.ind.hospitalmanagementsystem.service.PatientService;
 import com.ind.hospitalmanagementsystem.util.ResponseStructure;
-
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 @RestController
 @RequestMapping("/indhreshyadav")
-@CrossOrigin(origins = "*"  , methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.PATCH,RequestMethod.DELETE})
 public class PatientController {
 	@Autowired
 	private PatientService patientService;
-	@PostMapping("/addpatient/{did}")
-	public ResponseEntity<ResponseStructure<Patient>> savePatient(@RequestBody Patient patient, @PathVariable int did){
-		return patientService.savePatient(patient,did);
+	@PostMapping("/savepatient/{id}")
+	public ResponseEntity<ResponseStructure<Patient>>  savePatient(@RequestBody Patient patient ,@PathVariable Integer id){
+		return patientService.savePatient(patient, id);
 	}
+	
+	
+	
 	@GetMapping("/findpatient/{id}")
 	public ResponseEntity<ResponseStructure<Patient>> findById(@PathVariable Integer id){
 		return patientService.findById(id);
 	}
-	@GetMapping("/loginpatient")
-	public ResponseEntity<ResponseStructure<Patient>> loginPatient(@RequestParam String  email,@RequestParam String password){
-		return patientService.loginPatient(email, password);
-	}
+	
 	@DeleteMapping("/deletepatient/{id}")
 	public ResponseEntity<ResponseStructure<Patient>> deletePatient(@PathVariable Integer id){
 		return patientService.deletePatient(id);
 	}
+	
+	@GetMapping("/loginpatient")
+	public ResponseEntity<ResponseStructure<Patient>> adminLogin(@RequestParam  String email ,@RequestParam String password){
+		return patientService.patientLogin(email, password);
+		
+	}
 	@PutMapping("/updatepatient")
-	public ResponseEntity<ResponseStructure<Patient>> updatePatient(@RequestBody Patient patient){
+	public ResponseEntity<ResponseStructure<Patient>> updateDoctor(@RequestBody Patient patient){
 		return patientService.updatePatient(patient);
 	}
+
 }

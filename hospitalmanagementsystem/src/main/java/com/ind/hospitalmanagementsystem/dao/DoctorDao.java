@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ind.hospitalmanagementsystem.dto.Admin;
 import com.ind.hospitalmanagementsystem.dto.Doctor;
 import com.ind.hospitalmanagementsystem.repository.DoctorRepository;
 
@@ -13,53 +14,29 @@ import com.ind.hospitalmanagementsystem.repository.DoctorRepository;
 public class DoctorDao {
 	@Autowired
 	private DoctorRepository doctorRepository;
-	// to save the doctor details
-	public Doctor saveDoctor(Doctor doctor){
+	 
+	public Doctor saveDoctor(Doctor doctor) {
 		return doctorRepository.save(doctor);
 	}
-	// to find the doctor details based on id
+	
 	public Doctor findById(Integer id) {
+		Optional<Doctor> doctordb=doctorRepository.findById(id);
 		
-		Optional<Doctor> doctorId=doctorRepository.findById(id);
-		if(doctorId.isPresent()) {
-			 return doctorId.get();
+		if(doctordb!=null) {
+			 return doctordb.get();
 		}else {
 			return null;
 		}
 	}
-	
-	// to fetch all doctor details
-	
-	public List<Doctor> findAll(){
-		return doctorRepository.findAll();
+	public void deleteDoctor(Integer id) {
+		 doctorRepository.deleteById(id);
 		
 	}
-	// to delete the doctor details
 	
-	public void deleteDoctor(Integer id) {
-		doctorRepository.deleteById(id);
-	}
-	
-	public Doctor loginEmail(String email) {
-		return doctorRepository.findByEmail(email);
-	}
+	 public Doctor doctorLogin(String email) {
+		 return doctorRepository.findByEmail(email);
+	 } public List<Doctor> fetchAll(){
+		 return doctorRepository.findAll();
+	 }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

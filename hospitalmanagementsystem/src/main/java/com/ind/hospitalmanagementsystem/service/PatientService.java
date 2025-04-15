@@ -1,5 +1,7 @@
 package com.ind.hospitalmanagementsystem.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,116 +11,119 @@ import com.ind.hospitalmanagementsystem.dao.DoctorDao;
 import com.ind.hospitalmanagementsystem.dao.PatientDao;
 import com.ind.hospitalmanagementsystem.dto.Doctor;
 import com.ind.hospitalmanagementsystem.dto.Patient;
-import com.ind.hospitalmanagementsystem.exception.DoctorId;
-import com.ind.hospitalmanagementsystem.exception.InvalidEmail;
-import com.ind.hospitalmanagementsystem.exception.PatientId;
-import com.ind.hospitalmanagementsystem.util.Email;
+import com.ind.hospitalmanagementsystem.exception.EmailNotFound;
+import com.ind.hospitalmanagementsystem.exception.InvalidId;
+import com.ind.hospitalmanagementsystem.util.EmailService;
 import com.ind.hospitalmanagementsystem.util.ResponseStructure;
 
 @Service
 public class PatientService {
+	
 	@Autowired
 	private PatientDao patientDao;
-	@Autowired
+	@Autowired 
 	private DoctorDao doctorDao;
 	@Autowired
-	private Email email;
+	private EmailService emailService;
 	
-	ResponseStructure<Patient> responseStructure=new ResponseStructure<Patient>();
-	// to save patient 
-	public ResponseEntity<ResponseStructure<Patient>> savePatient(Patient patient,int did){
-		Doctor addDoctor=doctorDao.findById(did);
-		
-		if(addDoctor!=null) {
-			patient.setDoctor(addDoctor);
-			patientDao.savePatient(patient);
-			responseStructure.setData(patient);
-			responseStructure.setMsg("patient data  added sucessfully");
-			responseStructure.setStatusCode(HttpStatus.CREATED.value());
-			email.patientRegisterMail(patient.getEmail());
-			return new ResponseEntity<ResponseStructure<Patient>>(responseStructure,HttpStatus.CREATED);
-		}else {
-			throw new DoctorId("doctor id is not found");
-		}
+	ResponseStructure<Patient> structure=new ResponseStructure<Patient>();
+	ResponseStructure<List<Patient>> listsStructure=new ResponseStructure();
+//	// to save 
+//	public ResponseEntity<ResponseStructure<Patient>> savePatient(Patient patient, Integer id){
+//		Doctor optionalDoctor=doctorDao.findById(id);
+//		if(optionalDoctor!=null) {
+//			
+//		        // Set the existing doctor to the patient
+//		 patient.setDoctor(optionalDoctor);
+//		 structure.setData(patientDao.savePatient(patient));
+//			structure.setMsg("patient data insereted sucessfully");
+//			structure.setStatusCode(HttpStatus.CREATED.value());
+//			//emailService.sendAccountconfirmationMail(doctor.getEmail());
+//			return new ResponseEntity<ResponseStructure<Patient>>(structure,HttpStatus.CREATED);
+//
+//		  
+//		}else {
+//			throw new InvalidId("doctor is not there");
+//		}
+//		
+//		
+//	}
+//	
+	public ResponseEntity<ResponseStructure<Patient>> savePatient(Patient patient, Integer id) {
+	    Doctor existingDoctor = doctorDao.findById(id);
+	    
+	    if (existingDoctor != null) {
+	        // Associate the patient with the found doctor
+	        patient.setDoctor(existingDoctor);
+
+	        // Save the patient
+	        Patient savedPatient = patientDao.savePatient(patient);
+
+	        // Set response details
+	        structure.setData(savedPatient);
+	        structure.setMsg("Patient data inserted successfully");
+	        structure.setStatusCode(HttpStatus.CREATED.value());
+
+	        return new ResponseEntity<>(structure, HttpStatus.CREATED);
+	    } else {
+	        throw new InvalidId("Doctor with ID  not found");
+	    }
 	}
-	// to find the patient details
+	
+	
 	
 	public ResponseEntity<ResponseStructure<Patient>> findById(Integer id){
-		Patient patientDetails=patientDao.findById(id);
-		if(patientDetails!=null) {
-			responseStructure.setData(patientDetails);
-			responseStructure.setMsg("patient details fetched sucessfully");
-			responseStructure.setStatusCode(HttpStatus.FOUND.value());
-			
-			return new ResponseEntity<ResponseStructure<Patient>>(responseStructure,HttpStatus.FOUND);
+		Patient patientdb=patientDao.findById(id);
+		if(patientdb!=null) {
+			structure.setData(patientdb);
+			structure.setMsg("doctor data fetched sucessfully");
+			structure.setStatusCode(HttpStatus.ACCEPTED.value());
+			//emailService.sendAccountconfirmationMail(doctor.getEmail());
+			return new ResponseEntity<ResponseStructure<Patient>>(structure,HttpStatus.ACCEPTED);
 		}else {
-			throw new PatientId("patient is not found");
+			throw new InvalidId("Id not found");
 		}
 	}
-	
-	// to login the patient
-	
-	public ResponseEntity<ResponseStructure<Patient>> loginPatient(String email,String password){
-		Patient patientDetails=patientDao.loginPatient(email);
-		if(patientDetails!=null && patientDetails.getPassword().equals(password)) {
-			responseStructure.setData(patientDetails);
-			responseStructure.setMsg("patient login sucessfully");
-			responseStructure.setStatusCode(HttpStatus.ACCEPTED.value());
-			return new ResponseEntity<ResponseStructure<Patient>>(responseStructure,HttpStatus.ACCEPTED);
-		}else {
-			throw new InvalidEmail("invalid email are password");
-		}
-	}
-	// to delete the patient
-	
 	public ResponseEntity<ResponseStructure<Patient>> deletePatient(Integer id){
-		Patient deletePatient=patientDao.findById(id);
-		if(deletePatient!=null) {
+		Patient patientdb=patientDao.findById(id);
+		if(patientdb!=null) {
 			patientDao.deletePatient(id);
-			responseStructure.setData(deletePatient);
-			responseStructure.setMsg("patient data deleted sucessfully");
-			responseStructure.setStatusCode(HttpStatus.NO_CONTENT.value());
-			return new ResponseEntity<ResponseStructure<Patient>>(responseStructure,HttpStatus.NO_CONTENT);
+			structure.setData(patientdb);
+			structure.setMsg("doctor data deleted sucessfully");
+			structure.setStatusCode(HttpStatus.NO_CONTENT.value());
+			//emailService.sendAccountconfirmationMail(doctor.getEmail());
+			return new ResponseEntity<ResponseStructure<Patient>>(structure,HttpStatus.NO_CONTENT);
 		}else {
-			throw new PatientId("in valid id");
+			throw new InvalidId("Id not found");
 		}
 	}
-	// to update the patient delete
-	
+//	
+//	
+//	
+	public ResponseEntity<ResponseStructure<Patient>> patientLogin(String email, String password){
+		Patient patientDatabase=patientDao.patientLogin(email);
+		if(patientDatabase!=null && patientDatabase.getPassword().equals(password)) {
+			
+			structure.setData(patientDatabase);
+			structure.setMsg("doctor login sucess fully");
+			structure.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Patient>>(structure,HttpStatus.ACCEPTED);
+		}else {
+			throw new EmailNotFound("email are password incoorect");
+		}
+	}
 	public ResponseEntity<ResponseStructure<Patient>> updatePatient(Patient patient){
 		Patient updatePatient=patientDao.findById(patient.getPid());
 		if(updatePatient!=null) {
-			
-			responseStructure.setData(patientDao.savePatient(patient));
-			responseStructure.setMsg("patint deleted sucessfully");
-			responseStructure.setStatusCode(HttpStatus.ACCEPTED.value());
-			return new ResponseEntity<ResponseStructure<Patient>>(responseStructure,HttpStatus.ACCEPTED);
-			
+			patientDao.savePatient(patient);
+			structure.setData(updatePatient);
+			structure.setMsg("doctor data deleted sucessfully");
+			structure.setStatusCode(HttpStatus.OK.value());
+			//emailService.sendAccountconfirmationMail(doctor.getEmail());
+			return new ResponseEntity<ResponseStructure<Patient>>(structure,HttpStatus.OK);
 		}else {
-			throw new PatientId("inavalid id");
+			throw new InvalidId("Id not found");
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

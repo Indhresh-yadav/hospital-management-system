@@ -6,5 +6,5 @@ import com.ind.hospitalmanagementsystem.dto.Patient;
 
 public interface PatientRepository  extends JpaRepository<Patient, Integer>{
 
-		Patient findByEmail(String email);
+	public Patient findByEmail(String email);
 }
