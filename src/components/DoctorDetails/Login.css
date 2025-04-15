@@ -1,0 +1,111 @@
+.login-background{
+    background-color: #D6C1D4;
+    height:85vh;
+    width: 100%;
+    overflow: hidden;
+
+}
+.login-heading{
+    position: relative;
+    left:36%;
+    color: #FFF7FF;
+    font-size:25px;
+}
+.login-form-background{
+    background-color: #FFF7FF;
+    width: 65%;
+    height: 68vh;
+    position: relative;
+    left: 15%;
+
+}
+.login-doctor {
+    width: 425px;
+    height: 502px;
+    border-radius: 12px;
+  }
+.login-form-page{
+    background-color:#954B8D;
+    position:absolute;
+    transform: rotate(53deg);
+    top: 12%;
+    height:390px;
+    width:390px;
+    left: 56%;
+}
+.login-form{
+    transform: rotate(306deg); 
+    padding-top: 30px;
+    padding-left:30px;
+}
+.login-form-input{
+    border-radius: 20px;
+    width: 250px;
+    height: 30px;
+    outline: none;
+
+}
+.login-form-button{
+    border-radius: 25px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    position:relative;
+    left:20%;
+}
+.login-footer{
+    background-color: rgb(19, 16, 16);
+    text-align: center;
+    height: 35px;
+    width: 100%;
+    color: whitesmoke;
+  position: absolute;
+  bottom: 0.1%;
+  padding: auto;
+  }
+ 
+.doctor-login-doctor{
+    width:500px;
+    height: 83vh;
+    position: relative;
+    left: 10%;
+}  
+.doctor-login-form-main{
+    background-color:#2B95D5;
+    width: 40%;
+    height: 60vh;
+    position:absolute;
+    left: 48%;
+    top: 26%;
+    border-bottom-right-radius:50%;
+    border-top-left-radius:50% ;
+  
+}
+
+.doctor-login-form{
+    position:absolute;
+    left: 35%;
+    top: 18%;
+}
+.doctor-login-input{
+    border-radius: 20px;
+    width: 250px;
+    height: 30px;
+    background-color: white;
+    outline: none;
+}
+.doctor-login-button{
+    border-radius: 25px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    position:relative;
+    left: 35%;
+    top: 10px;
+    outline: none;
+}
+.doctor-login-heading{
+    position: absolute;
+    left:40%;
+}
+  

@@ -1,0 +1,92 @@
+.registration-backgroundimage{
+    background-image: url('../../assets/hospitalreception.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow-x: hidden;
+    height:85vh;
+    width: 100%;
+    background-repeat: no-repeat;
+   
+    
+  }
+  .registration-heading{
+    position: relative;
+    top:2%;
+    left:38%;
+    color: #e7e1dd;
+  }
+  .registration-reception{
+    position: relative;
+    color: #e7e1dd;
+    bottom:11%;
+    left: 38%;
+    font-size: 74px;
+  }
+  .registration-form{
+    position: fixed;
+    left: 40%;
+    top: 28%;
+    border-radius: 25px;
+    height:65vh;
+    width:275px;
+    
+  }
+  .registration-input{
+    height: 27px;
+    border-radius: 20px;
+    width: 250px;
+    background: transparent;
+    color: black;
+    border: 2px solid #E7E1DD;
+  }
+  .registration-button{
+    position: relative;
+    background-color: transparent;
+    height: 30px;
+    width:130px;
+    border-radius: 25px;
+    text-align: center;
+    color: #302c28;
+    border: 2px solid #E7E1DD;
+  }
+  .registration-footer{
+    background-color: rgb(15, 14, 14);
+    text-align: center;
+    height: 40px;
+    width: 100%;
+    color: whitesmoke;
+    position: absolute;
+    padding: auto;
+  
+  }
+/* doctor registration --------------------------------------------------------------------------------------- */
+.doctor-registration-background-image{
+  background-image: url(../../assets/doctor-regestration);
+  background-size: cover;
+  height: 86vh;
+  position: absolute;
+  top:11.5%;
+  width: 100%;
+}
+.doctor-registration-form{
+  position: absolute;
+  left: 40%;
+
+}
+.doctor-registration-input{
+  width: 250px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 15px;
+  border: 3px solid whitesmoke;
+}
+.doctor-registration-button{
+  height: 30px;
+  width: 100px;
+  background-color: transparent;
+  border-radius: 15px;
+  
+  border: 3px solid whitesmoke;
+}
+
+  
